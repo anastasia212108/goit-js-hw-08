@@ -5,7 +5,7 @@ const form = document.querySelector(".feedback-form")
 // const message = document.querySelector(".message-js")
 const btn = document.querySelector("button")
 const localKey3 = "feedback-form-state"
-const formData = {}
+
 
 // updateForm()
 
@@ -13,11 +13,14 @@ form.addEventListener("input", throttle(onFormInput, 500))
 // form.addEventListener("submit", onFormSubmit)
 
 function onFormInput(evt) {
-    formData[evt.target.name] = evt.target.value;
+    const formData = {
+    email: form.elements.email.value,
+    message: form.elements.message.value,
+}
+    // formData[evt.target.name] = evt.target.value;
    localStorage.setItem(localKey3, JSON.stringify(formData));
-   
-
 };
+
 form.addEventListener("submit", removeText)
 function removeText(evt) {
     console.log(JSON.parse(localStorage.getItem(localKey3)))
@@ -33,13 +36,15 @@ function removeText(evt) {
 
 document.addEventListener("DOMContentLoaded", backText);
 function backText(evt) {
-     
     if (localStorage.getItem(localKey3)) {
-        form.elements.email.value = JSON.parse(localStorage.getItem(localKey3)).email;
-form.elements.message.value = JSON.parse(localStorage.getItem(localKey3)).message
-    }
-}
+        form.elements.email.value = JSON.parse(localStorage.getItem(localKey3)).email || "";
+        form.elements.message.value = JSON.parse(localStorage.getItem(localKey3)).message || "";
 
+    } 
+
+    
+}
+console.log("we")
 
     // if (setText)
 // }
